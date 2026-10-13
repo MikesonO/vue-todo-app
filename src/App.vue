@@ -34,6 +34,9 @@ export default {
     moveTodo(todo, newStatus) {
       todo.status = newStatus
     },
+    deleteTodo(todo) {
+      this.todos = this.todos.filter((t) => t.id !== todo.id)
+    },
   },
 }
 </script>
@@ -54,6 +57,7 @@ export default {
         <li class="todo-list__item" v-for="todo in todoItems" :key="todo.id">
           {{ todo.text }}
           <button @click="moveTodo(todo, 'inWork')">Start</button>
+          <button @click="deleteTodo(todo)">Delete</button>
         </li>
       </ul>
     </div>
@@ -66,6 +70,8 @@ export default {
         <li class="todo-list__item" v-for="todo in inWorkItems" :key="todo.id">
           {{ todo.text }}
           <button @click="moveTodo(todo, 'done')">Finish</button>
+          <button @click="moveTodo(todo, 'todo')">Back to Todo</button>
+          <button @click="deleteTodo(todo)">Delete</button>
         </li>
       </ul>
     </div>
@@ -77,6 +83,8 @@ export default {
       <ul>
         <li class="todo-list__item" v-for="todo in doneItems" :key="todo.id">
           {{ todo.text }}
+          <button @click="moveTodo(todo, 'inWork')">Back to In Work</button>
+          <button @click="deleteTodo(todo)">Delete</button>
         </li>
       </ul>
     </div>
